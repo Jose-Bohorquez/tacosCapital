@@ -1,4 +1,4 @@
-    <div class="container">
+    <div class="container pb-5">
         <main class="px-5">
             <div class="py-5 text-center">
                 <h2>Formulario de Pago</h2>

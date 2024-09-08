@@ -19,8 +19,42 @@
         </li>
       </ul>
       <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-        <button class="btn btn-primary">Log In</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Admin
+        </button>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Vertically centered scrollable modal -->
+    <div class="modal-dialog modal-dialog-start modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ingreso al Sistema de Tacos Capital</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+              <div class="modal-body">
+                  <div class="container">
+                    <div class="mb-3">
+                      <label for="">Usuario</label>
+                      <input class="form-control" type="text" placeholder="Ejemplo@example.com" name="usu_ing" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="">Contraseña</label>
+                      <input class="form-control" type="text" placeholder="xxxxxx" name="pas_ing" required>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer d-flex justify-content-between">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <a href="?C=Login&A=index" type="submit" class="btn btn-primary">Ingresar</a>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>

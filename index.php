@@ -6,28 +6,28 @@ define('CONTROLLERS_DIR', __DIR__ . '/Controllers/');
 // Define la constante VIEWS_DIR con la ruta a la carpeta de vistas.
 define('VIEWS_DIR', __DIR__ . '/Views/');
 
+// Ruta por defecto si el controlador o método no se encuentran
+define('DEFAULT_CONTROLLER', 'Landing');
+define('DEFAULT_METHOD', 'inicio');
+
 // Obtener parámetros de la URL
 // $_GET['C'] busca el parámetro 'C' en la URL, que indica el nombre del controlador.
-// Si 'C' no está definido en la URL, se asigna 'Landing' como valor predeterminado.
-$controllerName = isset($_GET['C']) ? $_GET['C'] : 'Landing';
+// Si 'C' no está definido en la URL, se asigna DEFAULT_CONTROLLER como valor predeterminado.
+$controllerName = isset($_GET['C']) ? $_GET['C'] : DEFAULT_CONTROLLER;
 
 // $_GET['A'] busca el parámetro 'A' en la URL, que indica el método a ejecutar del controlador.
-// Si 'A' no está definido en la URL, se asigna 'index' como valor predeterminado.
-$actionName = isset($_GET['A']) ? $_GET['A'] : 'inicio';
+// Si 'A' no está definido en la URL, se asigna DEFAULT_METHOD como valor predeterminado.
+$actionName = isset($_GET['A']) ? $_GET['A'] : DEFAULT_METHOD;
 
 // Construir el nombre completo del archivo del controlador
-// Combina la constante CONTROLLERS_DIR con el nombre del controlador y agrega '.php'.
-// Esto da como resultado una ruta completa al archivo del controlador.
 $controllerFile = CONTROLLERS_DIR . $controllerName . '.php';
 
 // Verificar si el archivo del controlador existe en la ruta especificada
 if (file_exists($controllerFile)) {
     // Incluir el archivo del controlador si existe.
-    // Esto permite usar la clase y métodos definidos en el archivo.
     require_once $controllerFile;
     
-    // Crear una instancia del controlador
-    // Asigna el nombre de la clase del controlador.
+    // Asignar el nombre de la clase del controlador.
     $controllerClass = $controllerName;
     
     // Verificar si la clase del controlador existe
@@ -40,21 +40,24 @@ if (file_exists($controllerFile)) {
             // Llamar al método del controlador especificado en la URL.
             $controller->$actionName();
         } else {
-            // Si el método no existe en el controlador, mostrar la vista por defecto.
-            showDefaultView();
+            // Redireccionar a una página de error si el método no existe en el controlador.
+            header('Location: /ruta/error_metodo_no_encontrado');
+            exit();
         }
     } else {
-        // Si la clase del controlador no existe, mostrar la vista por defecto.
-        showDefaultView();
+        // Redireccionar a una página de error si la clase del controlador no existe.
+        header('Location: /ruta/error_controlador_no_encontrado');
+        exit();
     }
 } else {
-    // Si el archivo del controlador no existe, mostrar la vista por defecto.
-    showDefaultView();
+    // Redireccionar a una página de error si el archivo del controlador no existe.
+    header('Location: /ruta/error_archivo_controlador_no_encontrado');
+    exit();
 }
 
-// Función para mostrar la vista por defecto
+// No se llega a esta parte del código debido a las redirecciones anteriores,
+// pero puedes mantener esta función para futuros usos o como fallback.
 function showDefaultView() {
     // Incluir la vista por defecto.
-//    Incluye el archivo 'landing.php' de la carpeta de vistas.
     include VIEWS_DIR . 'landing.php';
 }
